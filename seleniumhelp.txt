@@ -1,0 +1,683 @@
+Selenium path
+\\10.128.32.91\New Training Data\Selenium\Selenium_training\Firefox 38 setup
+Or
+D:\Softwares\Firfox 38 set up
+install addons as install from file and select the xpi for firebug & Selenium ide
+====================================================================================================
+Pre requisite:
+Basic java
+loops
+classes & objects
+error handling
+inheritance
+-------------------------------------------------------
+Java programming
+----------------------------------------------------
+What is selenium?
+Its open source tool
+testing web applications
+Set of software to automate web browser.
+Regression testing & functional testing
+
+Supports provided by Selenium : 
+
+Operating environments:
+Mac, windows, linux etc...
+
+Browsers :
+Mozilla,IE, Google chrome,safari, opera etc...
+
+Programming language support:
+Java,c#, perl,python,Ruby,PHP etc..
+--------------------------------------------
+
+History of selenium : 
+
+2004 selenium launched  Jason Huggins --same origin policy
+2006 web driver launched--Paul --create a server for selenium core +aut
+2008 RC & Web driver merged.
+
+
+Selenium 1.0
+(Selenium IDE + RC + GRID)
+
+Selenium 2.0
+(Selenium IDE + RC + Web driver+ GRID)
+
+
+--------------------------------------------
+Components:
+--Selenium IDE:
+Integrated development environment.:
+
+Supports record & replay
+Firefox browser plugin.
+edit, create , execute & modify TEst cases & test suits
+Export selenium tc in other formats.
+
+IDE TC default will be in .html
+
+limitations:
+It can work only with Mozilla.
+it does not provide programming interface.
+data driven testing is not available.
+does not support complex tc designs.
+no centralise maintenace for elements.
+-------------------------------------------------------------
+
+Selenium RC: Remote control.
+Execute test cases on multiple browsers
+
+
+IDE -> CHROME -> PORT-> SERVER DETAILS-> RESULT LOCATION
+Limitation:
+Only one browser we will be able to execute at a time.
+Through RC Server test cases will be executed on application.introduces delay in execution.
+
+--------------------------------------------------------------
+Grid:
+
+Used to execute tests across multiple browsers, operating environment & machines in 'parallel'.
+
+-----------------------------------------------------------
+	Selenium 			UFT
+1. Open source			Paid tool (licensed)
+2. Supports various programming supports only vb for scripting
+	languages
+3. suitable for web based app	supports web, windows, mobile app
+4. Supports diffrent Browsers	recomonded to work with IE
+5. supports diffrent platforms	Can work with Windows
+  	OS
+6. No Addins needed		Addins needed
+7. Integration not posible with  Can integrate with 				ALM/QC tools
+	other tools
+8. No cetralised maintenace 	Centralised Object 				repository available
+	for elements
+9. Complicated setup		essy to install
+10.detail programming knowledge Easy to learn VB & tool
+	needed
+11. Less hardware resources  	More hardware resources used
+	needed
+12. Limited support for image	provides rich support 	for iMAGE Based tests	based testing
+13. No certification		Certifications 				available
+14. No dedicated recomonded	dedicated help / support by HP.			help available	
+
+Selenium web driver:
+provides programming interface to create & execute TCs.
+
+IDE HAS IDE(RECORD & REPLAY) But no programming interface
+WD Has programming interface but does not have IDE.
+
+It supports multiple OE like mac, linux,windows.
+It supports diffrent browsers, chrome, mozilla, IE, safari, Opera etc.
+It also supports pogramming environments like, java, c# , perl, python, php etc..
+
+
+limitations : 
+No IDE
+Does not support test suit execution.
+Details reports will not be generated using WD.
+NO centralised maintenance of elements.
+DATA driven testing not posible
+
+WebDriver is a tool for automating testing web applications. 
+It is popularly known as Selenium 2.0. WebDriver uses a different underlying framework,
+while Selenium RC uses JavaScript Selenium-Core embedded within the browser which has 
+got some limitations. WebDriver interacts directly with the browser without any intermediary, unlike Selenium RC that depends on a server. It is used in the following context -
+
+Multi-browser testing including improved functionality for browsers which is not well-supported by Selenium RC (Selenium 1.0).
+
+Handling multiple frames, multiple browser windows, popups, and alerts.
+
+Complex page navigation.
+
+Advanced user navigation such as drag-and-drop.
+
+AJAX-based UI elements.
+
+Most Used Commands
+The following table lists some of the most frequently used commands in WebDriver along with their syntax.
+
+Sr.No.	Command & Description
+1	driver.get("URL")To navigate to an application.
+
+2	element.sendKeys("inputtext")Enter some text into an input box.
+
+3	element.clear()Clear the contents from the input box.
+
+4	select.deselectAll()Deselect all OPTIONs from the first SELECT on the page.
+
+5	select.selectByVisibleText("some text")Select the OPTION with the input specified by the user.
+
+6	driver.switchTo().window("windowName")Move the focus from one window to another.
+
+7	driver.switchTo().frame("frameName")Swing from frame to frame.
+
+8	driver.switchTo().alert()Helps in handling alerts.
+
+9	driver.navigate().to("URL")Navigate to the URL.
+
+10	driver.navigate().forward()To navigate forward.
+
+11	driver.navigate().back()To navigate back.
+
+12driver.close()Closes the current browser associated with the driver.
+
+13driver.quit()Quits the driver and closes all the associated window of that driver.
+
+14driver.refresh()Refreshes the current page.
+
+Locating elements in Selenium WebDriver is performed with the help of findElement() and findElements() methods provided by WebDriver and WebElement class.
+
+findElement() returns a WebElement object based on a specified search criteria or ends up throwing an exception if it does not find any element matching the search criteria.
+
+findElements() returns a list of WebElements matching the search criteria. If no elements are found, it returns an empty list.
+
+The following table lists all the Java syntax for locating elements in Selenium WebDriver.
+
+Method	Syntax	Description
+By ID	driver.findElement(By.id (<element ID>))	Locates an element using the ID attribute
+By name	driver.findElement(By.name (<element name>))	Locates an element using the Name attribute
+By class name	driver.findElement(By.className (<element class>))	Locates an element using the Class attribute
+By tag name	driver.findElement(By.tagName (<htmltagname>))	Locates an element using the HTML tag
+By link text	driver.findElement(By.linkText (<linktext>))	Locates a link using link text
+By partial link text	driver.findElement(By.partialLinkText (<linktext>))	Locates a link using the link's partial text
+By CSS	driver.findElement(By.cssSelector (<css selector>))	Locates an element using the CSS selector
+By XPath	driver.findElement(By.xpath (<xpath>))	Locates an element using XPath query
+
+Demo 1:
+public class Test1 {
+	static WebDriver driver;
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.google.com");
+		System.out.println("current URL: "+driver.getCurrentUrl());
+		driver.navigate().to("https://webapp2.syntelinc.com");
+		String URL = driver.getCurrentUrl();
+		System.out.println("URL Is: "+ URL);
+		driver.navigate().back();
+		System.out.println("current URL: "+driver.getCurrentUrl());
+		driver.navigate().forward();
+		System.out.println("current URL: "+driver.getCurrentUrl());
+		driver.close();
+
+	}
+
+}
+
+Demo 2:partial link
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Test1 {
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.calculator.net/");
+		driver.manage().window().maximize();
+		WebElement lk=driver.findElement(By.partialLinkText("Loan"));
+		lk.click();
+		
+
+	}
+
+}
+
+Web Element:
+•	Introduction to WebElement, findElement(), findElements() 
+•	Input Box 
+•	Entering Values in Input Boxes 
+•	Deleting Values in Input Boxes 
+•	Buttons 
+•	Submit Buttons 
+•	Radio Button 
+•	Check Box 
+•	DropDown
+•	Table
+  Demo1:
+package com.p1;
+
+import static org.testng.Assert.assertEquals;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.Test;
+
+public class Test2 {
+	static WebDriver driver;
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.calculator.net/");
+		System.out.println("current URL: "+driver.getCurrentUrl());
+		WebElement txtSearch=driver.findElement(By.partialLinkText("Loan"));
+		txtSearch.click();
+		String exp="Loan Calculator";
+		String act=driver.findElement(By.xpath("//*[@id=\"content\"]/h1")).getText();
+		System.out.println(act);
+		WebElement camt=driver.findElement(By.id("cloanamount"));
+		camt.clear();
+		camt.sendKeys("500000");
+	driver.findElement(By.name("cloanterm")).clear();	
+	driver.findElement(By.name("cloanterm")).sendKeys("5");	
+	driver.findElement(By.xpath("/html/body/div[3]/div[1]/table[1]/tbody/tr/td[1]/table/tbody/tr[7]/td/input"));
+	
+	WebElement ccom=driver.findElement(By.xpath("//*[@id=\"ccompound\"]"));
+	Select cc=new Select(ccom);
+	cc.selectByIndex(4);
+	
+	WebElement cpay=driver.findElement(By.xpath("//*[@id=\"cpayback\"]"));
+	Select cp=new Select(cpay);
+	cp.selectByVisibleText("Every Day");
+	
+	driver.findElement(By.xpath("/html/body/div[3]/div[1]/table[1]/tbody/tr/td[1]/table/tbody/tr[7]/td/input")).click();
+	
+	
+		//Thread.sleep(1000);
+		
+		
+		//driver.close();
+		
+		
+		
+
+
+	}
+	@Test
+	void testData()
+	{
+		//assertEquals(exp,act);
+	}
+
+}
+
+
+Demo2:
+
+package com.p1;
+import org.openqa.selenium.Alert;
+//form demo
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import java.util.*;
+public class Test3 {
+	public static void main(String[] args) {
+		System.out.println("welcome");
+		WebDriver driver;
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+driver = new ChromeDriver();
+		driver.get("E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\Testing\\SeleniumCEP\\DemoHTML//Home.html");
+	//	WebElement l=driver.findElement(By.partialLinkText("Registr"));
+		
+
+		//WebElement l=driver.findElement(By.xpath("//a[contains(text(),'Regis')]"));
+		WebElement l=driver.findElement(By.xpath("/html/body/a[2]"));
+		
+
+		String name=l.getText();
+		System.out.println("text"+name);
+		l.click();
+		WebElement u=driver.findElement(By.name("uname"));
+		u.sendKeys("admin");
+		
+		WebElement p=driver.findElement(By.name("pwd"));
+		p.sendKeys("Syntel123$");
+		
+		WebElement c=driver.findElement(By.id("col-3"));
+		c.click();
+		System.out.println(c.isSelected());
+		String txt=driver.findElement(By.id("col-3")).getText();
+		System.out.println("txt"+txt);
+		
+		WebElement ln=driver.findElement(By.id("lang-2"));
+		ln.click();
+		
+		WebElement ln1=driver.findElement(By.id("lang-3"));
+		ln1.click();
+		
+		Select age = new Select(driver.findElement(By.name("sltAge")));
+		age.selectByIndex(3);
+		
+		//Multiple selection
+		Select loc = new Select(driver.findElement(By.name("sltLoc")));
+		loc.selectByVisibleText("Mumbai");
+		loc.selectByIndex(1);
+			
+		
+		Select gen = new Select(driver.findElement(By.name("sltgen")));
+		gen.selectByValue("F");
+		
+		//Datetimepicker
+		
+		WebElement dateBox=driver.findElement(By.name("bdaytime"));
+		//Fill date as mm/dd/yyyy as 09/25/2013
+
+        dateBox.sendKeys("09122013");
+
+        //Press tab to shift focus to time field
+
+        dateBox.sendKeys(Keys.TAB);
+
+        //Fill time as 02:45 PM
+
+        dateBox.sendKeys("0245PM");
+        driver.findElement(By.xpath("/html/body/form/input[10]")).click();
+      driver.findElement(By.xpath("*[@id='s11']")).click();
+       // driver.findElement(By.xpath("//input[@id='s1']")).click();
+      //  driver.findElement(By.xpath(".//*[@id='s1']")).click();
+     //   driver.findElement(By.xpath("//input[contains(@name,'Click for ')]")).click();
+
+				
+		
+
+	}
+
+}
+
+TDemo:
+package com.p1;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TDemo {
+
+	public static void main(String[] args) {
+		WebDriver driver;
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+
+		driver = new ChromeDriver();
+		driver.get("E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\Testing\\SeleniumCEP\\DemoHTML//Table.html");
+		WebElement t=driver.findElement(By.name("detail"));
+		//code to minimize the window as there is no minimize method in selenium
+	//	driver.manage().window().setPosition(new Point(-2000, 0));
+		//driver.manage().window()
+		List  col = driver.findElements(By.xpath("html/body/table/tbody/tr[1]/th"));
+		
+System.out.println(col.size());
+
+List  row = driver.findElements(By.xpath("html/body/table/tbody/tr"));
+
+System.out.println(row.size()-1);
+
+WebElement cell=driver.findElement(By.xpath("html/body/table/tbody/tr[2]/td[1]"));
+System.out.println(cell.getText());
+System.out.println("Table Data");
+for(int i=1;i<=row.size()-1;i++)
+{
+	for(int j=1;j<=col.size();j++ )
+	{
+		WebElement td=driver.findElement(By.xpath("html/body/table/tbody/tr["+(i+1)+"]/td["+j+"]"));
+		System.out.print(td.getText());
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	System.out.println();
+}
+
+	}
+
+}
+
+
+TagDemo:
+package com.p1;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TagSelector {
+
+	public static void main(String[] args) {
+		WebDriver driver;
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+
+		driver = new ChromeDriver();
+		
+		
+		driver.get("E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\Testing\\SeleniumCEP\\DemoHTML//Regist.html");
+		
+		 List <WebElement> list = driver.findElements(By.tagName("a"));
+		 System.out.println("Number of links: "+list.size());
+		 for(int i = 0; i < list.size(); i++){
+		 System.out.println(list.get(i).getText());
+		 }
+
+	}
+
+}
+
+TestNg with Selenium
+package com.p1;
+
+import static org.testng.Assert.assertEquals;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class TestNgDemo {
+	static WebDriver driver;
+	@BeforeTest
+	public void init()
+	{
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+		driver=new ChromeDriver();
+		System.out.println(driver);
+		driver.manage().window().maximize();
+		driver.get("https://www.calculator.net/");
+	}
+	@AfterTest
+	public void destroy()
+	{
+		driver=null;
+		System.out.println(driver);		
+	}	
+	@Test
+	void testTitle()
+	{
+		WebElement txtSearch=driver.findElement(By.partialLinkText("Loan"));
+		txtSearch.click();
+		String exp="Loan calculator";
+		String act=driver.findElement(By.xpath("//*[@id=\"content\"]/h1")).getText();
+		System.out.println(act);
+		assertEquals(act,exp);
+	}
+	
+	
+	@Test
+	void testData()
+	{
+		//assertEquals(exp,act);
+	}
+
+}
+
+
+Handling Alerts in Selenium
+
+Alert interface provides the below few methods which are widely used in Selenium Webdriver. 
+1) void dismiss() // To click on the 'Cancel' button of the alert. 
+driver.switchTo().alert().dismiss();
+
+driver.findElement(By.name("uname")).sendKeys("Manisha");
+	driver.findElement(By.name("pwd")).sendKeys("Syntel123$");
+	driver.findElement(By.name("btnSbt")).click();
+	Alert alert=driver.switchTo().alert();
+	Thread.sleep(5000);
+	alert.accept();	
+	
+	//Confirmation Alert
+	driver.findElement(By.partialLinkText("want ")).click();
+	driver.findElement(By.name("eid")).sendKeys("MK50421321");
+	driver.findElement(By.name("cmpBtn")).click();
+	
+	String msg=alert.getText();
+	System.out.println(msg);
+	Thread.sleep(5000);
+	alert.dismiss();
+
+
+	
+2) void accept() // To click on the 'OK' button of the alert. 
+driver.switchTo().alert().accept();
+3) String getText() // To capture the alert message. 
+driver.switchTo().alert().getText();			
+4) void sendKeys(String stringToSend) // To send some data to alert box. 
+driver.switchTo().alert().sendKeys("Text");
+
+
+
+Handling PopUp:
+
+
+Handling Frames:
+
+
+Handling Windows:
+To handle all opened windows by web driver, we can use "Driver.getWindowHandles()" and then we can switch window from one window to another in a web application. Its return type is Iterator<String>. 
+Driver.getWindowHandle(); 
+When the site opens, we need to handle the main window by driver.getWindowHandle(). This will handle the current window that uniquely identifies it within this driver instance. Its return type is String. 
+To handle multiple windows in Selenium WebDriver, We follow the following steps. 
+Now, we will automate the given below scenario to see how to handle multiple windows using Selenium Webdriver. 
+
+package com.p1;
+
+import java.util.Iterator;
+import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class WTest {
+	public static void main(String ar[]) throws InterruptedException
+	{
+		System.setProperty("webdriver.chrome.driver", "E:\\New Volume Manisha E Drive\\atos-syntel\\ManishaTesting\\chromedriver.exe");
+
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+	driver.manage().window().maximize();
+	driver.get("http://demo.guru99.com/popup.php");			
+    driver.manage().window().maximize();            		
+driver.findElement(By.xpath("//*[contains(@href,'popup.php')]")).click();		
+    		
+    String MainWindow=driver.getWindowHandle();	
+    System.out.println("Parent Window"+MainWindow);
+    		
+    // To handle all new opened window.				
+        Set<String> s1=driver.getWindowHandles();		
+    Iterator<String> i1=s1.iterator();	
+   		
+    while(i1.hasNext())			
+    {		
+        String ChildWindow=i1.next();		
+        		
+        if(!MainWindow.equalsIgnoreCase(ChildWindow))			
+        {    		
+             
+                // Switching to Child window
+                driver.switchTo().window(ChildWindow);	                                                                                                           
+                driver.findElement(By.name("emailid"))
+                .sendKeys("manisha@gmail.com");                			
+                
+                driver.findElement(By.name("btnLogin")).click();			
+                 System.out.println(ChildWindow);            
+		// Closing the Child Window.
+                    driver.close();		
+        }		
+    }		
+    // Switching to Parent window i.e Main Window.
+        driver.switchTo().window(MainWindow);	
+	}
+}
+
+Synchronization in Selenium:
+
+Implicit Wait: During Implicit wait if the Web Driver cannot find it immediately because of its availability, it will keep polling (around 250 milli seconds) the DOM to get the element. If the element is not available within the specified Time an NoSuchElementException will be raised. The default setting is zero. Once we set a time, the Web Driver waits for the period of the WebDriver object instance.
+
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+Explicit Wait: There can be instance when a particular element takes more than a minute to load. In that case you definitely not like to set a huge time to Implicit wait, as if you do this your browser will going to wait for the same time for every element.
+To avoid that situation you can simply put a separate time on the required element only. By following this your browser implicit wait time would be short for every element and it would be large for specific element.
+
+WebDriverWait wait = new WebDriverWait(driver,10);
+				
+wait.until(ExpectedConditions.presenceOfElementLocated(By.name("btnK")));
+The following are the Expected Conditions that can be used in Explicit Wait
+
+alertIsPresent()
+elementSelectionStateToBe()
+elementToBeClickable()
+elementToBeSelected()
+frameToBeAvaliableAndSwitchToIt()
+invisibilityOfTheElementLocated()
+invisibilityOfElementWithText()
+presenceOfAllElementsLocatedBy()
+presenceOfElementLocated()
+textToBePresentInElement()
+textToBePresentInElementLocated()
+textToBePresentInElementValue()
+titleIs()
+titleContains()
+visibilityOf()
+visibilityOfAllElements()
+visibilityOfAllElementsLocatedBy()
+visibilityOfElementLocated()
+
+Fluent Wait: Let’s say you have an element which sometime appears in just 1 second and some time it takes minutes to appear. In that case it is better to use fluent wait, as thi
+
+
+1 sec
+5 sec
+1 min
+
+wait (1 min) 
+
+*****   ---1 min 
+
+10:   1sec  59 sec  5 sec  55  saved 
+
+
+
+https://www.guru99.com/implicit-explicit-waits-selenium.html
+Action Classes:
+In Webdriver, handling keyboard events and mouse events (including actions such as Drag and Drop or clicking multiple elements With Control key) are done using the advanced user interactions API . It contains Actions and Action classes which are needed when performing these events.
+In order to perform action events, we need to use.
+
+
+
+
+
+
+
+
+

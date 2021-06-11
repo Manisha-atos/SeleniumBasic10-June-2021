@@ -1,0 +1,575 @@
+TestNG is a testing framework inspired from JUnit and NUnit. But introducing some new functionality that make it more powerful and easier to use.
+
+It is an open-source automated testing framework; where NG of TestNG means Next Generation. TestNG is similar to JUnit but it is much more powerful than JUnit but still, it’s inspired by JUnit. It is designed to be better than JUnit, especially when testing integrated classes. Pay special thanks to Cedric Beust who is the creator of TestNG.
+
+
+TestNG Features
+Supports annotations.  @Test, @Before
+
+level	
+
+	@BeforeSuit// once suit
+		@before Test// once test
+			@BeforeClass once class
+				@BeforeGroup() once group
+					@BeforeMethod for every test method 
+						@Test...
+					@AfterMethod
+				@AfterGroup()
+			@AfterClass
+		@AfterTest
+	@AfterSuit
+
+Ignore Test:
+@Ignore
+<exclude>
+@Test(enable=false)
+
+
+A--hr
+B--admin
+C--payroll
+		class1--employee,classs2--attendance
+
+TestNG uses more Java and OO features.
+
+Supports testing integrated classes (e.g., by default, no need to create a new test class instance for every test method).
+
+Separates compile-time test code from run-time configuration/data info.
+
+Flexible runtime configuration.
+
+Introduces ‘test groups’. Once you have compiled your tests, you can just ask TestNG to run all the "front-end" tests, or "fast", "slow", "database" tests, etc.
+
+Supports Dependent test methods, parallel testing, load testing, and partial failure.
+
+Flexible plug-in API.
+
+Support for multi threaded testing.
+
+What are the different Annotations are present in TestNG?
+@BeforeSuite: The annotated method will be run before all tests in this suite have run.
+@AfterSuite: The annotated method will be run after all tests in this suite have run.
+@BeforeTest: The annotated method will be run before any test method belonging to the classes inside the tag is run.
+@AfterTest: The annotated method will be run after all the test methods belonging to the classes inside the tag have run.
+@BeforeGroups: The list of groups that this configuration method will run before. This method is guaranteed to run shortly before the first test method that belongs to any of these groups is invoked.
+@AfterGroups: The list of groups that this configuration method will run after. This method is guaranteed to run shortly after the last test method that belongs to any of these groups is invoked.
+@BeforeClass: The annotated method will be run before the first test method in the current class is invoked.
+@AfterClass: The annotated method will be run after all the test methods in the current class have been run.
+@BeforeMethod: The annotated method will be run before each test method.
+@AfterMethod: The annotated method will be run after each test method.
+@Test: The annotated method is a part of a test case.
+
+
+Test1:
+package com.p1;
+import org.testng.Assert;
+import org.testng.annotations.Ignore;
+import org.testng.annotations.Test;
+
+public class Test1 {
+@Test(priority=1)
+public void Login()
+{
+	System.out.println("login Test");
+	Assert.fail();
+}
+@Test(priority=2,dependsOnMethods="Login")
+public void inbox()
+{
+	System.out.println("Inbox method");
+}
+
+@Test(priority=3)
+public void senMails()
+{
+	System.out.println("send Mails");
+}
+
+@Test(priority=4,enabled=false)
+public void Logout()
+{
+	System.out.println("Logout");
+}
+
+}
+-----------------------------Test2.java---------------
+package com.p1;
+
+import static org.testng.Assert.assertEquals;
+
+import java.util.concurrent.SynchronousQueue;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Test2 {
+	@BeforeSuite
+	
+	public void initSuit()
+	{
+		System.out.println("Suit init");
+	}
+	String cmp;
+	@BeforeMethod// each test method
+	public void beforeMethodt()
+	{
+		System.out.println("before method is invoked");
+	}
+	@BeforeTest// only once
+	public void beforeTest()
+	{
+		System.out.println("beforTest is invoked");
+		cmp="Atos Syntel";
+	}
+	
+	@AfterMethod// each test method
+	public void afterMethodt()
+	{
+		System.out.println("after method is invoked");
+		System.out.println(cmp);
+	}
+	@AfterTest// only once
+	public void afterTest()
+	{
+		System.out.println("afterTest is invoked");
+		cmp=null;
+		System.out.println(cmp);
+	}
+	
+@Test
+public void testMethod1()
+{
+	System.out.println("Test Method1");
+	assertEquals(cmp,"Atos Sysntel");
+}
+
+@Test
+public void testMethod2()
+{
+	System.out.println("Test Method2");
+}
+}
+------------------------Test3.javs---------------------
+package com.p1;
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class Test3 {
+	String cmp;
+	@BeforeClass
+	public void init()
+	{
+		cmp="Atos ";
+		System.out.println("inside init method");
+	}
+	@Test
+	public void testMethod1()
+	{
+		System.out.println("Test Method1");
+		
+	}
+	@Test
+	public void testMethod2()
+	{
+		System.out.println("Test Method2");
+		
+	}
+	@AfterClass
+	public void afterClass()
+	{
+		System.out.println("inside After Class ");
+	}
+}
+-------------------------GTest.java----------------------
+package com.p1;
+
+import org.testng.Assert;
+import org.testng.annotations.AfterGroups;
+import org.testng.annotations.BeforeGroups;
+import org.testng.annotations.Test;
+
+public class GTest {
+	@BeforeGroups ("sanity")
+	public void beforegrp()  
+	{  
+	System.out.println("This method will be executed before the execution of sanity Department group");  
+	}  
+	
+	@AfterGroups("sanity")
+	public void aftergrp()  
+	{  
+	System.out.println("This method will be executed after the execution of sanity Department group");  
+	}
+	@Test(groups="sanity")
+	  public void f1() {
+	  System.out.println("sanity::f1");
+	  }
+	  @Test(groups="sanity")
+	  public void f3() {
+	  System.out.println("sanity::f3");
+	 // Assert.fail();
+	  }
+	  @Test(groups="sanity")
+	  public void f5() {
+	  System.out.println("sanity::f5");
+	  }
+	  @Test(groups="regression")
+	  public void f7() {
+	  System.out.println("regression::f7");
+	  }
+	 /* @Test(groups="regression",dependsOnGroups={"sanity"})
+	  public void f2() {
+	  System.out.println("regression::f2");
+	  }
+	  @Test(groups="regression",dependsOnGroups={"sanity"})
+	  public void f4() {
+	  System.out.println("regression::f4");
+	  }
+	  @Test(groups="regression",dependsOnGroups={"sanity"})
+	  public void f6() {
+	  System.out.println("regression::f6");
+	  }*/
+}
+-----------------------------NewFile.xml-----------------
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name= "testsuite1">
+	<test name= "testbatch1">
+		<classes>
+			<class name="com.p1.Test2"/>
+			<class name="com.p1.Test3"/>	
+			
+			</classes>
+	</test>
+	<test name= "testbatch2">
+		<classes>
+			<class name="com.p1.Test2"/>		
+			
+			</classes>
+	</test>		
+</suite>
+------------------------------NewFile1.xml-----------------
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name= "testsuite1">
+	<test name= "t1">
+		<classes>
+			<class name="com.p1.Test1">
+				<methods>  
+  				<exclude name = "Logout"/>  
+  				<exclude name = "senMails"/> 
+  				</methods> 
+			</class>
+			
+			
+			</classes>
+	</test>
+		<test name= "t2">
+		<classes>
+			<class name="com.p1.Test1">
+			<methods>
+			
+			<includes name="Logout"></includes>
+			</methods>
+				
+			
+			</class>
+			
+			
+			</classes>
+	</test>
+</suite>
+--------------------------------NewFile2.xml-------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name= "testsuite1">
+	<test name= "t1">
+		<classes>
+			<class name="com.p1.GTest"/>
+					<groups>	
+				<run>	
+   					 <exclude name="sanity" />	
+        		</run>	
+       		</groups>		
+			</classes>
+	</test>
+		
+</suite>
+------------------------------------Paramertzation ---------------------------
+nother interesting feature available in TestNG is parametric testing. In most cases, you'll come across a scenario where the business logic requires a hugely varying number of tests. Parameterized tests allow developers to run the same test over and over again using different values.
+
+TestNG lets you pass parameters directly to your test methods in two different ways -
+
+With testng.xml
+With Data Providers
+
+Data Provider
+-------------
+
+package com.dp;
+public interface Calc {
+int add(int x,int y);
+}
+
+package com.dp;
+
+public class Calculator implements Calc{
+	//public static void main(String[] args) {
+			public  int add(int a,int b){
+				return a+b;
+			}
+		}
+
+
+
+package com.dp;
+
+import static org.testng.Assert.assertEquals;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class testCalc {
+Calculator c;
+@BeforeClass
+public void init()
+{
+	c=new Calculator();
+}
+
+@Test(dataProvider="dpAdd")
+public void testAdd(int a,int b,int exp)
+{
+	
+	assertEquals(c.add(a, b),exp);
+}
+@DataProvider (name= "dpAdd")
+public Object [][] getData(){
+	Object[][] table = new Object[][]{
+			{10,30,40},
+			{50,10,80},
+			{20,20,40},
+			{40,50,120},
+			{34,20,54},
+			{30,40,234}
+	};
+			return table;
+	}
+
+}
+
+
+
+Demo with Excel file-
+
+To work with Excel for parameterization using JXL.
+1> Create test Data in xls format
+2> Download jxl file
+3> Add jxl jar in project
+4> Create excel utility
+5> Create file class object to take reference of excel workbook
+6> Get the reference of Workbook to open
+7> Get sheet ref using werkbook object
+8> read data from excel
+9> close workbook
+10> call excel method in dataprovider annotation in test class.
+
+ex: 
+
+TestNG class:
+
+package TestCase;
+
+import junit.framework.Assert;
+
+import org.testng.annotations.AfterClass;
+
+import org.testng.annotations.BeforeClass;
+
+import org.testng.annotations.DataProvider;
+
+import org.testng.annotations.Test;
+
+import TestCases.calculator;
+import utility.excel1;
+
+
+public class Testcase1 {
+	
+calculator calc = null;
+	
+@BeforeClass
+  public void create_calc_instance(){
+	 
+calc = new calculator();
+  
+}
+	
+@Test(dataProvider= "dp_add")
+  
+public void testAdd(String a, String b, String Expected_result) {
+		int n1=Integer.parseInt(a);
+		int n2=Integer.parseInt(b);
+		int exp=Integer.parseInt(Expected_result);
+		//Assert.assertEquals(calc.add(n1,n2), exp);
+		Assert.assertEquals("Actual result not matching with expected", exp,calc.add(n1,n2));
+		/*int actual_result= calc.add(10,30);
+		if (actual_result==50){
+			System.out.println("actual result is equal to expected result-test passed");
+		}
+		else {
+			System.out.println("actual result is not equal to expected result-test Failed");
+			Assert.fail("actual result is not equal to expected result");
+		}*/
+  }
+	
+@DataProvider(name="dp_add")
+	
+public Object[][]getData(){		
+		
+return excel1.readDataFromExcel();
+	
+}
+	
+	
+@AfterClass
+	
+public void release_calc_instance(){
+		
+calc = null;
+	}
+}
+
+
+----Excelytility:
+package utility;
+import java.io.*;
+import java.io.IOException;
+
+import jxl.*;
+	import jxl.Workbook;
+	import jxl.read.biff.BiffException;
+
+public class excel1 {
+	static File exl = new File("C:\\Users\\SK5039528\\Desktop\\Data.xls");
+	static Workbook wbk = null;
+	static Sheet sht1 = null;
+	static Object[][]data=null;
+	static{
+	try{
+		wbk =Workbook.getWorkbook(exl);
+		sht1=wbk.getSheet("testdata");
+	}
+	catch(BiffException be){}
+	catch(IOException ie){}
+	}
+		//public static void readDataFromExcel()
+	public static Object[][]readDataFromExcel()
+		{
+			int row_count= sht1.getRows();
+			int col_count= sht1.getColumns();
+			data =new Object[row_count-1][col_count];
+			//System.out.println("rows "+ row_count);
+			//System.out.println("column "+ col_count);
+			for (int row=1; row<row_count;row++){
+				for(int col=0;col<col_count;col++){
+				//System.out.print(sht1.getCell(col, row).getContents()+" ");
+					data[row-1][col]=sht1.getCell(col, row).getContents();
+				}
+				//System.out.println();
+			}
+			wbk.close();
+			return data;
+			}
+	//public static void main(String[]ar)
+	//{
+	//	readDataFromExcel();
+	//}
+	}
+
+
+with .xml :
+
+
+Demo with .xml file
+package com.dp;
+
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class ExpDemo {
+
+@Test//(expectedExceptions=ArithmeticException.class)
+@Parameters("a")
+public void testDiv(int a) 
+{
+	System.out.println(a);
+	
+			int b=4;
+	
+	int r=a/b;
+	System.out.println(r);
+}
+@Test
+@Parameters("myName")
+public void parameterTest(String myName) {
+    System.out.println("Parameterized value is : " + myName);
+ }
+
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name = "Suite1">
+   <test name = "test1">
+   
+      <parameter name = "myName" value="manisha"/> 
+      <parameter name = "a" value="12"/> 
+      
+      <classes>
+         <class name = "com.dp.ExpDemo" />
+      </classes>
+      
+   </test>
+</suite>
+
+
+
+----------------------------------------Exception-----------------------------
+TestNG provides an option of tracing the exception handling of code. You can test whether a code throws a desired exception or not. Here the expectedExceptions parameter is used along with the @Test annotation.
+
+  package com.dp;
+
+import java.util.Scanner;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class ExpDemo {
+
+@Test(expectedExceptions=ArithmeticException.class)
+public void testDiv() 
+{
+	int a=4,b=0;
+	
+	int r=a/b;
+	System.out.println(r);
+}
+}
+
+
+----------------------------Reports in TestNG-------------------------------
+There are two ways to generate a report with TestNG -
+
+Listeners - For implementing a listener class, the class has to implement the org.testng.ITestListener interface. These classes are notified at runtime by TestNG when the test starts, finishes, fails, skips, or passes.
+
+Reporters - For implementing a reporting class, the class has to implement an org.testng.IReporter interface. These classes are called when the whole suite run ends. The object containing the information of the whole test run is passed to this class when called.
+
+Demo1 :run below file
+G:\JulyTrainiing\Devops\TestNGDemos\test-output\index.html 
